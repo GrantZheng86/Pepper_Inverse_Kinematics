@@ -51,14 +51,20 @@ class Pepper:
 
 
 class JointWithTransforms:
-
+    
+    # TODO: Add position and orientation information to this class
     def __init__(self, toFrame, transform):
         self.toFrame = toFrame
         self.transform = transform
 
 
 class Transform:
-
+    
+    # TODO: Create a abstract class that contains [x, y, z] and a quaternion
+    # TODO: Create two classes from the abstract classes. Although two classes will contain similar 
+    #       data structures, they will have different meaning. The first one will be the transformation
+    #       thus contain the homogeneous transformation matrix method. The later one will only contain
+    #       information that's about the status of the joint
     def __init__(self, translation, rotation):
         assert len(translation) == 3, "translation must contain 3 elements"
         assert len(rotation) == 4, "rotation quaternion must contain 4 elements"
