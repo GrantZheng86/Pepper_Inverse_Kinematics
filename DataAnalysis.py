@@ -47,21 +47,37 @@ def animateArm(jointConfigurations, setPoints):
 
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
-    armSegments3DL = pepperModel.get3DLine('L')
-    armSegments3DR = pepperModel.get3DLine('R')
-    for each_line in armSegments3DL:
-        ax.add_line(each_line)
+    xL, yL, zL = pepperModel.get3DLine('L')
+    xR, yR, zR = pepperModel.get3DLine('R')
+    print(xL, yL, zL)
+    print(xR, yR, xR)
+    ax.plot(xL,yL,zL)
+    ax.plot(xR, yR, zR)
+ 
+   
+         
+    plt.show()
 
-    for each_line in armSegments3DR:
-        ax.add_line(each_line)
-
-    for i in range(l):
-        shoulderPitch = jointDF['Shoulder Pitch'][i]
-        shoulderRoll = jointDF['Shoulder Roll'][i]
-        elbowYaw = jointDF['Elbow Yaw'][i]
-        elbowRoll = jointDF['Elbow Roll'][i]
-
-        pepperModel.shoulderL.updateTransforms(0., shoulderPitch, shoulderRoll)
-        pepperModel.elbowL.updateTransforms(elbowYaw, 0., elbowRoll)
-
+#     for i in range(l):
+#         ax.clear()
+#         shoulderPitch = jointDF['Shoulder Pitch'][i]
+#         shoulderRoll = jointDF['Shoulder Roll'][i]
+#         elbowYaw = jointDF['Elbow Yaw'][i]
+#         elbowRoll = jointDF['Elbow Roll'][i]
+#         
+#         
+#         pepperModel.shoulderPitchL.updateTransforms(0., shoulderPitch, 0.)
+#         pepperModel.shoulderRollL.updateTransforms(0, 0, shoulderRoll)
+#         pepperModel.elbowYawL.updateTransforms(elbowYaw, 0, 0)
+#         pepperModel.elbowRollL.updateTransforms(0, 0, elbowRoll)
+#         pepperModel.updateJointLocation()
+#         
+#         xS, yS, zS = pepperModel.get3DLine("L")
+#         
+#         
+#         ax.plot(xS,yS,zS)
+#         
+#             
+#         plt.pause(0.001)
+#         
     print(pepperModel)
