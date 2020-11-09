@@ -46,38 +46,44 @@ def animateArm(jointConfigurations, setPoints):
     l = len(setPointsDF.index)
 
     fig = plt.figure()
-    ax = fig.add_subplot(111, projection='3d')
-    xL, yL, zL = pepperModel.get3DLine('L')
-    xR, yR, zR = pepperModel.get3DLine('R')
-    print(xL, yL, zL)
-    print(xR, yR, xR)
-    ax.plot(xL,yL,zL)
-    ax.plot(xR, yR, zR)
- 
-   
-         
-    plt.show()
+    # ax = fig.add_subplot(111, projection='3d')
+    ax = fig.gca(projection='3d')
 
-#     for i in range(l):
-#         ax.clear()
-#         shoulderPitch = jointDF['Shoulder Pitch'][i]
-#         shoulderRoll = jointDF['Shoulder Roll'][i]
-#         elbowYaw = jointDF['Elbow Yaw'][i]
-#         elbowRoll = jointDF['Elbow Roll'][i]
-#         
-#         
-#         pepperModel.shoulderPitchL.updateTransforms(0., shoulderPitch, 0.)
-#         pepperModel.shoulderRollL.updateTransforms(0, 0, shoulderRoll)
-#         pepperModel.elbowYawL.updateTransforms(elbowYaw, 0, 0)
-#         pepperModel.elbowRollL.updateTransforms(0, 0, elbowRoll)
-#         pepperModel.updateJointLocation()
-#         
-#         xS, yS, zS = pepperModel.get3DLine("L")
-#         
-#         
-#         ax.plot(xS,yS,zS)
-#         
-#             
-#         plt.pause(0.001)
-#         
-    print(pepperModel)
+    # xL, yL, zL = pepperModel.get3DLine('L')
+    # xR, yR, zR = pepperModel.get3DLine('R')
+    # print(xL, yL, zL)
+    # print(xR, yR, zR)
+    # ax.plot(xL,yL,zL)
+    # ax.plot(xR, yR, zR)
+    # plt.show()
+
+    for i in range(l):
+        ax.clear()
+        ax.set_xlim3d(-.25, 0.5)
+        ax.set_ylim3d(-.25, 0.5)
+        ax.set_zlim3d(-.25, 0.5)
+        ax.set_xlabel('X axis')
+        ax.set_ylabel('Y axis')
+        ax.set_zlabel('Z axis')
+
+        shoulderPitch = jointDF['Shoulder Pitch'][i]
+        shoulderRoll = jointDF['Shoulder Roll'][i]
+        elbowYaw = jointDF['Elbow Yaw'][i]
+        elbowRoll = jointDF['Elbow Roll'][i]
+
+        pepperModel.shoulderPitchL.updateTransforms(0., shoulderPitch, 0.)
+        pepperModel.shoulderRollL.updateTransforms(0, 0, shoulderRoll)
+        pepperModel.elbowYawL.updateTransforms(elbowYaw, 0, 0)
+        pepperModel.elbowRollL.updateTransforms(0, 0, elbowRoll)
+        pepperModel.updateJointLocation()
+
+        xS, yS, zS = pepperModel.get3DLine("L")
+
+        ax.plot(xS, yS, zS)
+        ax.plot([setPointsDF['X'][i]], [setPointsDF['Y'][i]], [setPointsDF['Z'][i]],
+                markerfacecolor='r', markeredgecolor='k', marker='o', markersize=5, alpha=0.6)
+
+        ax.plot([0], [0], [0],
+                markerfacecolor='b', markeredgecolor='k', marker='o', markersize=6, alpha=0.6)
+
+        plt.pause(0.001)
